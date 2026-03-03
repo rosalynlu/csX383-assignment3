@@ -1,0 +1,7 @@
+grpcio>=1.78.0
+grpcio-tools>=1.78.0
+protobuf>=4.25.0
+pyzmq>=25.1.0
+flatbuffers>=23.5.26
+psycopg2-binary>=2.9.0
+python-dotenv>=1.0.0

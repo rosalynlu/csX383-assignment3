@@ -1,0 +1,5 @@
+grpcio>=1.78.0
+grpcio-tools>=1.78.0
+protobuf>=4.25.0
+pyzmq>=25.1.0
+flatbuffers>=23.5.26

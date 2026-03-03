@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ordering
+  namespace: team6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ordering
+  template:
+    metadata:
+      labels:
+        app: ordering
+    spec:
+      containers:
+        - name: ordering
+          image: 192.168.1.129:5000/team6/ordering-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: INVENTORY_ADDR
+              value: "inventory.team6.svc.cluster.local:50051"
+          ports:
+            - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ordering
+  namespace: team6
+spec:
+  selector:
+    app: ordering
+  type: NodePort
+  ports:
+    - name: http
+      port: 5000
+      targetPort: 5000
+      nodePort: 30083

@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+import os
 
 # ------------------------------------------------------------
 # Grocery Store Streamlit Client
@@ -15,10 +16,10 @@ st.title("CSX383 PA1 — Grocery Store Client (Streamlit)")
 st.caption("This client sends HTTP+JSON to the Ordering (Flask) service.")
 
 # URL of the Ordering microservice (Flask)
-# Need to  confirm the final endpoint/port.
+default_url = os.getenv("ORDERING_SERVICE_URL", "http://localhost:5000")
 ordering_url = st.text_input(
     "Ordering Service URL",
-    "http://localhost:5000/submit"
+    f"{default_url}/submit"
 )
 
 # User selects whether this is a grocery order or a restock request

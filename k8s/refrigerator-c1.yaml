@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: refrigerator
+  namespace: team6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: refrigerator
+  template:
+    metadata:
+      labels:
+        app: refrigerator
+    spec:
+      containers:
+      - name: refrigerator
+        image: 192.168.1.129:5000/team6/client-streamlit:latest
+        imagePullPolicy: Always
+        env:
+        - name: ORDERING_SERVICE_URL
+          value: "http://172.16.2.99:30083"
+        ports:
+        - containerPort: 8501
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: refrigerator
+  namespace: team6
+spec:
+  type: NodePort
+  selector:
+    app: refrigerator
+  ports:
+  - port: 8501
+    targetPort: 8501
+    nodePort: 30091

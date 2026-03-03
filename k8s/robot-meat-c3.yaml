@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: robot-meat
+  namespace: team6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: robot-meat
+  template:
+    metadata:
+      labels:
+        app: robot-meat
+    spec:
+      containers:
+        - name: robot
+          image: 192.168.1.129:5000/team6/robot-service:latest
+          imagePullPolicy: Always
+          env:
+            - name: ROBOT_NAME
+              value: "meat"
+            - name: INVENTORY_ADDR
+              value: "172.16.2.99:30081"
+            - name: ZMQ_SUB_ADDR
+              value: "tcp://172.16.2.99:30557"
