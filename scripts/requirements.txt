@@ -1,0 +1,4 @@
+locust
+pandas
+matplotlib
+psycopg2-binary

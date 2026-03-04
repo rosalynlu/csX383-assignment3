@@ -48,7 +48,8 @@ csX383-assignment1/
 ├── scripts/
 │  └── init_db.sh               # Database initialization script
    |__ plot_latency.py          # latency analytics visualization script
-|
+|  |__ tail_latency.py          # P2 tail lantency analysis(P50/P90/P95 + CDF) 
+   |__ locustfile.py            # Locust worload definition for load testing
 ├── services/
 │   ├── client_streamlit/
 │   │   └── app.py               # Streamlit web UI client
@@ -472,6 +473,74 @@ To run the script from your local machine instead of the VM, forward port 5432 (
 - `latency_summary.txt`
 
 If no latency data exists, the script will print `No latency data found in analytics table.`
+
+## Milestone 2: Locust Workload & Tail Latency Analysis
+
+### Running Locust Experiments
+For local testing: 
+Start all services (see Deployment section), then run from the project root:
+```bash
+source venv/bin/activate
+
+# 1 concurrent user (3 reps)
+RUN_TAG=u1_rep1 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 1 -r 1 --run-time 60s --host http://localhost:5000 2>/dev/null
+RUN_TAG=u1_rep2 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 1 -r 1 --run-time 60s --host http://localhost:5000 2>/dev/null
+RUN_TAG=u1_rep3 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 1 -r 1 --run-time 60s --host http://localhost:5000 2>/dev/null
+
+# 10 concurrent users (3 reps)
+RUN_TAG=u10_rep1 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 10 -r 10 --run-time 60s --host http://localhost:5000 2>/dev/null
+RUN_TAG=u10_rep2 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 10 -r 10 --run-time 60s --host http://localhost:5000 2>/dev/null
+RUN_TAG=u10_rep3 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 10 -r 10 --run-time 60s --host http://localhost:5000 2>/dev/null
+
+# 20 concurrent users (3 reps)
+RUN_TAG=u20_rep1 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 20 -r 20 --run-time 60s --host http://localhost:5000 2>/dev/null
+RUN_TAG=u20_rep2 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 20 -r 20 --run-time 60s --host http://localhost:5000 2>/dev/null
+RUN_TAG=u20_rep3 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 20 -r 20 --run-time 60s --host http://localhost:5000 2>/dev/null
+```
+
+Output CSVs are saved to `data/latencies_<RUN_TAG>.csv`. Workload is 85% refrigerator (GROCERY_ORDER) and 15% truck (RESTOCK_ORDER).
+
+For testing on VM, ssh into nw-c1-m1, cd into csX383-assignment2, and run the following:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r scripts/requirements.txt
+
+# Same commands as above, but with the VM's internal IP address for the host
+
+# 1 concurrent user
+RUN_TAG=u1_rep1 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 1 -r 1 --run-time 60s --host http://172.16.2.136:30083 2>/dev/null
+RUN_TAG=u1_rep2 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 1 -r 1 --run-time 60s --host http://172.16.2.136:30083 2>/dev/null
+RUN_TAG=u1_rep3 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 1 -r 1 --run-time 60s --host http://172.16.2.136:30083 2>/dev/null
+
+# 10 concurrent users
+RUN_TAG=u10_rep1 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 10 -r 10 --run-time 60s --host http://172.16.2.136:30083 2>/dev/null
+RUN_TAG=u10_rep2 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 10 -r 10 --run-time 60s --host http://172.16.2.136:30083 2>/dev/null
+RUN_TAG=u10_rep3 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 10 -r 10 --run-time 60s --host http://172.16.2.136:30083 2>/dev/null
+
+# 20 concurrent users
+RUN_TAG=u20_rep1 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 20 -r 20 --run-time 60s --host http://172.16.2.136:30083 2>/dev/null
+RUN_TAG=u20_rep2 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 20 -r 20 --run-time 60s --host http://172.16.2.136:30083 2>/dev/null
+RUN_TAG=u20_rep3 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 20 -r 20 --run-time 60s --host http://172.16.2.136:30083 2>/dev/null
+```
+
+
+### Computing Tail Latencies & CDF Plots
+```bash
+python3 scripts/tail_latency.py \
+  --input data/latencies_u1_rep*.csv data/latencies_u10_rep*.csv data/latencies_u20_rep*.csv \
+  --outdir out \
+  --title "Latency CDF" \
+  --combined
+```
+
+**Output:**
+- `out/cdf_per_run.png` — CDF curve per run
+- `out/cdf_combined.png` — all runs overlaid
+- `out/per_run_tail_latencies.csv` — P50/P90/P95/P99 per run
+- `out/summary.txt` — pooled statistics across all runs
+
+
 
 ### Notes
 
