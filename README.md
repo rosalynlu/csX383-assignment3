@@ -625,6 +625,8 @@ socat TCP-LISTEN:30557,fork,reuseaddr TCP:<CLUSTER_WORKER_NODE_IP>:30557 &
 
 Get WAN endpoint IPs:
 
+We inserted ContainerLab WAN links in two places: between Cluster 1 and Cluster 2 (C1-C2), and between Cluster 2 and Cluster 3 (C2-C3).
+
 ```bash
 docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' clab-pa2-wan-wan_c1_c2
 docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' clab-pa2-wan-wan_c2_c3
@@ -633,9 +635,11 @@ docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' clab
 Apply WAN scenarios:
 
 ```bash
+# C1-C2
 docker exec -it clab-pa2-wan-wan_c1_c2 sh -lc '
 tc qdisc add dev eth0 root netem delay 30ms loss 1% 2>/dev/null || true
 '
+# C2-C3
 docker exec -it clab-pa2-wan-wan_c2_c3 sh -lc '
 tc qdisc add dev eth0 root netem delay 30ms loss 1% 2>/dev/null || true
 '
