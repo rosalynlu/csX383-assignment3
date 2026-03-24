@@ -2,7 +2,7 @@
 Configuration file[/etc/frr/frr.conf] processing failure: 11
 
 Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
-172.20.20.7       1 Full/Backup     22m36s            33.273s 10.0.41.1       eth1:10.0.41.2                       0     0     0
-172.20.20.11      1 Full/DR         22m35s            34.293s 10.0.12.2       eth2:10.0.12.1                       0     0     0
-172.20.20.5       1 Full/Backup     22m36s            33.257s 10.0.13.2       eth3:10.0.13.1                       0     0     0
+172.20.20.7       1 Full/Backup     26.561s           33.070s 10.0.41.1       eth1:10.0.41.2                       0     0     0
+172.20.20.5       1 Full/Backup     26.558s           33.087s 10.0.12.2       eth2:10.0.12.1                       0     0     0
+172.20.20.6       1 Full/Backup     21.559s           33.094s 10.0.13.2       eth3:10.0.13.1                       0     0     0
 

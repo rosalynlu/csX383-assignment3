@@ -8,18 +8,18 @@ Codes: K - kernel route, C - connected, L - local, S - static,
        t - trapped, o - offload failure
 
 IPv4 unicast VRF default:
-K>* 0.0.0.0/0 [0/0] via 172.20.20.1, eth0, weight 1, 00:23:17
-O>* 10.0.12.0/24 [110/120] via 10.0.26.1, eth1, weight 1, 00:22:31
-O>* 10.0.13.0/24 [110/70] via 10.0.26.1, eth1, weight 1, 00:22:26
-O   10.0.26.0/24 [110/20] is directly connected, eth1, weight 1, 00:23:17
-C>* 10.0.26.0/24 is directly connected, eth1, weight 1, 00:23:17
-L>* 10.0.26.2/32 is directly connected, eth1, weight 1, 00:23:17
-O>* 10.0.35.0/24 [110/45] via 10.0.26.1, eth1, weight 1, 00:22:26
-O>* 10.0.41.0/24 [110/80] via 10.0.26.1, eth1, weight 1, 00:22:26
-O>* 10.0.52.0/24 [110/30] via 10.0.26.1, eth1, weight 1, 00:22:31
-O>* 172.16.1.0/24 [110/90] via 10.0.26.1, eth1, weight 1, 00:22:26
-O   172.16.2.0/24 [110/10] is directly connected, eth2, weight 1, 00:23:17
-C>* 172.16.2.0/24 is directly connected, eth2, weight 1, 00:23:17
-L>* 172.16.2.1/32 is directly connected, eth2, weight 1, 00:23:17
-C>* 172.20.20.0/24 is directly connected, eth0, weight 1, 00:23:17
-L>* 172.20.20.8/32 is directly connected, eth0, weight 1, 00:23:17
+K>* 0.0.0.0/0 [0/0] via 172.20.20.1, eth0, weight 1, 00:01:09
+O>* 10.0.12.0/24 [110/120] via 10.0.26.1, eth1, weight 1, 00:00:23
+O>* 10.0.13.0/24 [110/70] via 10.0.26.1, eth1, weight 1, 00:00:23
+O   10.0.26.0/24 [110/20] is directly connected, eth1, weight 1, 00:01:08
+C>* 10.0.26.0/24 is directly connected, eth1, weight 1, 00:01:08
+L>* 10.0.26.2/32 is directly connected, eth1, weight 1, 00:01:08
+O>* 10.0.35.0/24 [110/45] via 10.0.26.1, eth1, weight 1, 00:00:23
+O>* 10.0.41.0/24 [110/80] via 10.0.26.1, eth1, weight 1, 00:00:18
+O>* 10.0.52.0/24 [110/30] via 10.0.26.1, eth1, weight 1, 00:00:23
+O>* 172.16.1.0/24 [110/90] via 10.0.26.1, eth1, weight 1, 00:00:18
+O   172.16.2.0/24 [110/10] is directly connected, eth2, weight 1, 00:01:08
+C>* 172.16.2.0/24 is directly connected, eth2, weight 1, 00:01:08
+L>* 172.16.2.1/32 is directly connected, eth2, weight 1, 00:01:08
+C>* 172.20.20.0/24 is directly connected, eth0, weight 1, 00:01:09
+L>* 172.20.20.9/32 is directly connected, eth0, weight 1, 00:01:09
