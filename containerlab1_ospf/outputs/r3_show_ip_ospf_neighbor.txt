@@ -1,0 +1,7 @@
+% Can't open configuration file /etc/frr/vtysh.conf due to 'No such file or directory'.
+Configuration file[/etc/frr/frr.conf] processing failure: 11
+
+Neighbor ID     Pri State           Up Time         Dead Time Address         Interface                        RXmtL RqstL DBsmL
+172.20.20.9       1 Full/DR         22m36s            33.596s 10.0.13.1       eth1:10.0.13.2                       0     0     0
+172.20.20.6       1 Full/DR         22m37s            32.733s 10.0.35.2       eth2:10.0.35.1                       0     0     0
+
