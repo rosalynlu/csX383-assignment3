@@ -2,16 +2,19 @@
 
 This repository contains the implementation of Programming Assignment 2 for CSX383 using a microservice architecture, which is based off of [Programming Assignment 1](https://github.com/rosalynlu/csX383-assignment1) and [Programming Assignment 2](https://github.com/rosalynlu/csX383-assignment2).
 
-## Architecture Overview
-
-- **Streamlit** web interface client
-- **Flask + HTTP/JSON** ordering microservice
-- **gRPC + Protobuf** inventory microservice
-- **gRPC + Protobuf** pricing microservice
-- **PostgreSQL** database (inventory, pricing, analytics)
-- **ZeroMQ pub-sub + FlatBuffers** payload for robot communication
-  - Inventory publishes FETCH/RESTOCK topics via FlatBuffers payload
-  - Robots subscribe and respond back to inventory via gRPC/Protobuf
+## Table of Contents
+* [Programming Assignment 1](#Programming-Assignment-1)
+  * [Architecture Overview](#Architecture-Overview)
+  * [Technologies Used](#Technologies-Used)
+  * [Setup](#Setup)
+  * [Deployment](#Deployment)
+  * [Latency Analytics](#Latency-Analytics)
+* [Programming Assignment 2](#Programming-Assignment-2)
+  * [Locust Workload & Tail Latency Analysis](#Locust-Workload-&-Tail-Latency-Analysis)
+  * [ContainerLab HIL Implementation](#ContainerLab-HIL-Implementation)
+* [Programming Assignment 3 (In Progress)](#Programming-Assignment-3-(In-Progress))
+  * [Milestone 1: ContainerLab OSPF WAN](#Milestone-1:-ContainerLab-OSPF-WAN)
+* [Notes](#Notes)
 
 ## Repository Structure
 
@@ -20,6 +23,13 @@ csX383-assignment3/
 ├── client/
 │   ├── __init__.py
 │   └── requirements.txt         # Python dependencies (all services)
+├── containerlab1_ospf/          # OSPF WAN topology
+│   ├── pa3wan.clab.yaml         # ContainerLab topology (6 routers + 2 LAN hosts)
+│   ├── run.sh                   # Deploy topology + configure LAN interfaces
+│   ├── cleanup.sh               # Destroy topology
+│   ├── set-lan-ifs.sh           # Configure LAN1/LAN2 host interfaces
+│   ├── capture.sh               # Collect routing + OSPF outputs
+│   └── r1-r6/                   # Router configs (FRR)
 ├── data/
 │   ├── latencies_..._rep.csv    # Latencies datasets
 ├── flatbuffers_local/
@@ -110,6 +120,19 @@ csX383-assignment3/
 ├── README.md                    # This file
 └── build-all-sh
 ```
+
+# Programming Assignment 1
+
+## Architecture Overview
+
+- **Streamlit** web interface client
+- **Flask + HTTP/JSON** ordering microservice
+- **gRPC + Protobuf** inventory microservice
+- **gRPC + Protobuf** pricing microservice
+- **PostgreSQL** database (inventory, pricing, analytics)
+- **ZeroMQ pub-sub + FlatBuffers** payload for robot communication
+  - Inventory publishes FETCH/RESTOCK topics via FlatBuffers payload
+  - Robots subscribe and respond back to inventory via gRPC/Protobuf
 
 ## Technologies Used
 
@@ -214,11 +237,11 @@ Expected output:
 Database initialized and seeded
 ```
 
-### Deployment
+## Deployment
 
 You will run Inventory, 5 robots, Pricing, Ordering, and Streamlit on the cloud VM.
 
-**Install and start tmux**
+### Install and start tmux
 
 ```bash
 sudo apt install -y tmux
@@ -228,6 +251,8 @@ tmux new -s pa1
 where `pa1` is the user-defined tmux session name.
 
 Once inside tmux, create windows for each service. After each command, the terminal will hang (this is expected). To open a new window, `CTRL-B + C` or `CTRL-B + : + new-window`. The new window should already be in the repository root.
+
+### Run
 
 **Window 1 - Inventory (gRPC + ZeroMQ PUB)**
 
@@ -351,7 +376,7 @@ Collecting usage statistics. To deactivate, set browser.gatherUsageStats to fals
   URL: http://0.0.0.0:8501
 ```
 
-**Detach tmux**
+### Detach tmux
 
 To leave tmux running, `CTRL-B + D`.
 
@@ -513,7 +538,9 @@ To run the script from your local machine instead of the VM, forward port 5432 (
 
 If no latency data exists, the script will print `No latency data found in analytics table.`
 
-## Milestone 2: Locust Workload & Tail Latency Analysis
+# Programming Assignment 2
+
+## Locust Workload & Tail Latency Analysis
 
 ### Running Locust Experiments
 For local testing: 
@@ -563,7 +590,6 @@ RUN_TAG=u20_rep2 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless 
 RUN_TAG=u20_rep3 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --headless -u 20 -r 20 --run-time 60s --host http://172.16.2.136:30083 2>/dev/null
 ```
 
-
 ### Computing Tail Latencies & CDF Plots
 ```bash
 python3 scripts/tail_latency.py \
@@ -573,14 +599,13 @@ python3 scripts/tail_latency.py \
   --combined
 ```
 
-
 **Output:**
 - `out/cdf_per_run.png` — CDF curve per run
 - `out/cdf_combined.png` — all runs overlaid
 - `out/per_run_tail_latencies.csv` — P50/P90/P95/P99 per run
 - `out/summary.txt` — pooled statistics across all runs
 
-## Milestone 3: ContainerLab HIL implementation
+## ContainerLab HIL Implementation
 
 ### Install ContainerLab and Docker
 
@@ -828,10 +853,96 @@ Metrics generated:
 - P95 latency
 - P99 latency
 
-CDF plots are stored in `out/`
+CDF plots are stored in `out/`.
 
+# Programming Assignment 3 (In Progress)
 
-### Notes
+## Milestone 1: ContainerLab OSPF WAN
+
+This replaces the original ContainerLab WAN forwarder with a 6-router OSPF-based WAN topology using FRRouting (FRR).
+
+- Traffic enters through LAN1
+- Traverses the WAN using OSPF shortest path (cost-based)
+- Exits through LAN2
+- Demonstrates link-state routing (Dijkstra) behavior
+
+### Setup and Run
+
+- Start all routers (r1–r6)
+- Start LAN hosts (lan1host, lan2host)
+- Configure LAN interfaces and routing
+
+From repository root, navigate to the ContainerLab directory and deploy the topology:
+
+```bash
+cd containerlab1_ospf
+./run.sh
+```
+
+Verify containers are running:
+
+```bash
+docker ps | grep clab-pa3wan
+```
+
+Check OSPF neighbors and routing table:
+
+```bash
+docker exec -it clab-pa3wan-r1 vtysh -c "show ip ospf neighbor"
+docker exec -it clab-pa3wan-r1 vtysh -c "show ip route"
+```
+
+Run traceroute:
+
+```bash
+docker exec -it clab-pa3wan-lan1host traceroute 172.16.2.2
+```
+
+Expected path:
+
+```
+lan1 -> r4 -> r1 -> r3 -> r5 -> r2 -> r6 -> lan2
+```
+
+### Collect Required Outputs
+
+Run:
+
+```bash
+./capture.sh
+```
+
+Generates in containerlab1_ospf/outputs
+- `show ip route`
+- `show ip ospf neighbor`
+- `show ip ospf database`
+- traceroute output
+
+### Packet Capture (Wireshark/tcpdump)
+
+Run from local machine:
+
+```bash
+ssh <VM_NAME> "docker exec -i clab-pa3wan-r1 tcpdump -i eth1 -U -w -" | wireshark -k -i
+```
+
+Or save to file:
+
+```bash
+ssh <VM_NAME> "docker exec -i clab-pa3wan-r1 tcpdump -i eth1 -U -w -" > r1_eth1.pcap
+```
+
+Open .pcap in Wireshark
+
+### Cleanup
+
+Run:
+
+```bash
+./cleanup.sh
+```
+
+# Notes
 
 **PostgreSQL authentication tip:** To avoid re-running the database user/password setup after each VM restart, you can set `pg_hba.conf` to use `trust` authentication for local connections. Then a simple `sudo systemctl restart postgresql` will bring the existing database back up without needing to recreate anything.
 
@@ -846,3 +957,5 @@ ssh -i ~/.ssh/VM-key.pem \
 where `VM-key.pem` is the virtual machine key (`team-ras-ssh-keypair.pem`). Port 5432 is for running the analytics script locally against the VM's PostgreSQL database.
 
 From here, the rest of the instructions are the same.
+
+**Checking OSPF neighbors:** The warning `Can't open configuration file /etc/frr/vtysh.conf` or configuration file processing failure notices are non-blocking and don't affect OSPF functionality. They are ignorable.
