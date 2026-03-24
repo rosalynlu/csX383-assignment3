@@ -13,7 +13,7 @@ This repository contains the implementation of Programming Assignment 2 for CSX3
   * [Locust Workload & Tail Latency Analysis](#Locust-Workload-&-Tail-Latency-Analysis)
   * [ContainerLab HIL Implementation](#ContainerLab-HIL-Implementation)
 * [Programming Assignment 3 (In Progress)](#Programming-Assignment-3-(In-Progress))
-  * [Milestone 1: ContainerLab OSPF WAN](#Milestone-1:-ContainerLab-OSPF-WAN)
+  * [Milestone 1: ContainerLab OSPF WAN](#Milestone-1-ContainerLab-OSPF-WAN)
 * [Notes](#Notes)
 
 ## Repository Structure
