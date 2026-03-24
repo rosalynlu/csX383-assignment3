@@ -16,26 +16,93 @@ This repository contains the implementation of Programming Assignment 2 for CSX3
 ## Repository Structure
 
 ```
-csX383-assignment1/
+csX383-assignment3/
 ├── client/
 │   ├── __init__.py
 │   └── requirements.txt         # Python dependencies (all services)
+├── data/
+│   ├── latencies_baseline_u10_rep1.csv
+│   ├── latencies_baseline_u10_rep2.csv
+│   ├── latencies_baseline_u10_rep3.csv
+│   ├── latencies_baseline_u1_rep1.csv
+│   ├── latencies_baseline_u1_rep2.csv
+│   ├── latencies_baseline_u1_rep3.csv
+│   ├── latencies_baseline_u20_rep1.csv
+│   ├── latencies_baseline_u20_rep2.csv
+│   ├── latencies_baseline_u20_rep3.csv
+│   ├── latencies_u10_rep1.csv
+│   ├── latencies_u10_rep2.csv
+│   ├── latencies_u10_rep3.csv
+│   ├── latencies_u1_rep1.csv
+│   ├── latencies_u1_rep2.csv
+│   ├── latencies_u1_rep3.csv
+│   ├── latencies_u20_rep1.csv
+│   ├── latencies_u20_rep2.csv
+│   ├── latencies_u20_rep3.csv
+│   ├── latencies_wan30ms_u10_rep1.csv
+│   ├── latencies_wan30ms_u10_rep2.csv
+│   ├── latencies_wan30ms_u10_rep3.csv
+│   ├── latencies_wan30ms_u1_rep1.csv
+│   ├── latencies_wan30ms_u1_rep2.csv
+│   ├── latencies_wan30ms_u1_rep3.csv
+│   ├── latencies_wan30ms_u20_rep1.csv
+│   ├── latencies_wan30ms_u20_rep2.csv
+│   ├── latencies_wan30ms_u20_rep3.csv
+│   ├── latencies_wan80ms_u10_rep1.csv
+│   ├── latencies_wan80ms_u10_rep2.csv
+│   ├── latencies_wan80ms_u10_rep3.csv
+│   ├── latencies_wan80ms_u1_rep1.csv
+│   ├── latencies_wan80ms_u1_rep2.csv
+│   ├── latencies_wan80ms_u1_rep3.csv
+│   ├── latencies_wan80ms_u20_rep1.csv
+│   ├── latencies_wan80ms_u20_rep2.csv
+│   └── latencies_wan80ms_u20_rep3.csv
 ├── flatbuffers_local/
 │   ├── __init__.py
 │   └── work.fbs                 # Local FlatBuffers schema backup
 ├── generated/
-│   ├── __init__.py
 │   ├── flatbuffers/
 │   │   └── __init__.py          # FlatBuffers generated Python modules
-│   └── proto/
-│       ├── __init__.py
-│       ├── grocery_pb2.py       # Generated Protobuf Python code
-│       └── grocery_pb2_grpc.py  # Generated gRPC Python stubs
+│   ├── proto/
+│   │   ├── __init__.py
+│   │   ├── grocery_pb2.py       # Generated Protobuf Python code
+│   │   └── grocery_pb2_grpc.py  # Generated gRPC Python stubs
+│   └── __init__.py
 ├── groceryfb/
 │   ├── __init__.py
 │   ├── ItemQty.py               # Generated FlatBuffers classes
 │   ├── RequestType.py
 │   └── WorkOrder.py
+├── inventory/
+│   ├── Dockerfile
+│   └── requirements.txt
+├── k8s/
+│   ├── analytics-db.yaml
+│   ├── inventory-c2.yaml
+│   ├── ordering-c2.yaml
+│   ├── pricing-c2.yaml
+│   ├── refrigerator-c1.yaml
+│   ├── robot-bread-c3.yaml
+│   ├── robot-dairy-c3.yaml
+│   ├── robot-meat-c3.yaml
+│   ├── robot-party-c3.yaml
+│   ├── robot-produce-c3.yaml
+│   └── robots-c3.yaml
+├── ordering/
+│   ├── Dockerfile
+│   └── requirements.txt
+├── out/
+│   ├── cdf_combined.png
+│   ├── cdf_per_run.png
+│   ├── per_run_tail_latencies.png
+│   ├── pooled_tail_latencies.png
+│   └── summary.txt
+├── pricing/
+│   ├── Dockerfile
+│   └── requirements.txt
+├── robot/
+│   ├── Dockerfile
+│   └── requirements.txt
 ├── schemas/
 │   ├── flatbuffers/
 │   │   └── work.fbs             # FlatBuffers schema (Inventory -> Robots)
@@ -47,12 +114,15 @@ csX383-assignment1/
 │       └── seed_data.sql        # Initial data for items and pricing
 ├── scripts/
 │   ├── init_db.sh               # Database initialization script
+│   ├── locustfile.py            # Locust worload definition for load testing
 │   ├── plot_latency.py          # latency analytics visualization script
-│   ├── tail_latency.py          # P2 tail lantency analysis(P50/P90/P95 + CDF) 
-│   └── locustfile.py            # Locust worload definition for load testing
+│   ├── requirements.txt
+│   └── tail_latency.py          # P2 tail lantency analysis(P50/P90/P95 + CDF) 
 ├── services/
 │   ├── client_streamlit/
-│   │   └── app.py               # Streamlit web UI client
+│   │   ├── Dockerfile
+│   │   ├── app.py               # Streamlit web UI client
+│   │   └── requirements.txt
 │   ├── inventory_grpc/
 │   │   ├── __init__.py
 │   │   └── server.py            # Inventory gRPC server + ZeroMQ PUB
@@ -66,10 +136,14 @@ csX383-assignment1/
 ├── utils/
 │   ├── __init__.py
 │   └── db.py                    # Database connection helper
+├── .dockerignore
 ├── .env                         # Environment variables (not in git)
 ├── .env.example                 # Example environment configuration
 ├── .gitignore
-└── README.md                    # This file
+├── DOCKER_README.md
+├── MILESTONE1_MULTICLUSTER_README.md
+├── README.md                    # This file
+└── build-all-sh
 ```
 
 ## Technologies Used
