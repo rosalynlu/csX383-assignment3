@@ -21,42 +21,7 @@ csX383-assignment3/
 │   ├── __init__.py
 │   └── requirements.txt         # Python dependencies (all services)
 ├── data/
-│   ├── latencies_baseline_u10_rep1.csv
-│   ├── latencies_baseline_u10_rep2.csv
-│   ├── latencies_baseline_u10_rep3.csv
-│   ├── latencies_baseline_u1_rep1.csv
-│   ├── latencies_baseline_u1_rep2.csv
-│   ├── latencies_baseline_u1_rep3.csv
-│   ├── latencies_baseline_u20_rep1.csv
-│   ├── latencies_baseline_u20_rep2.csv
-│   ├── latencies_baseline_u20_rep3.csv
-│   ├── latencies_u10_rep1.csv
-│   ├── latencies_u10_rep2.csv
-│   ├── latencies_u10_rep3.csv
-│   ├── latencies_u1_rep1.csv
-│   ├── latencies_u1_rep2.csv
-│   ├── latencies_u1_rep3.csv
-│   ├── latencies_u20_rep1.csv
-│   ├── latencies_u20_rep2.csv
-│   ├── latencies_u20_rep3.csv
-│   ├── latencies_wan30ms_u10_rep1.csv
-│   ├── latencies_wan30ms_u10_rep2.csv
-│   ├── latencies_wan30ms_u10_rep3.csv
-│   ├── latencies_wan30ms_u1_rep1.csv
-│   ├── latencies_wan30ms_u1_rep2.csv
-│   ├── latencies_wan30ms_u1_rep3.csv
-│   ├── latencies_wan30ms_u20_rep1.csv
-│   ├── latencies_wan30ms_u20_rep2.csv
-│   ├── latencies_wan30ms_u20_rep3.csv
-│   ├── latencies_wan80ms_u10_rep1.csv
-│   ├── latencies_wan80ms_u10_rep2.csv
-│   ├── latencies_wan80ms_u10_rep3.csv
-│   ├── latencies_wan80ms_u1_rep1.csv
-│   ├── latencies_wan80ms_u1_rep2.csv
-│   ├── latencies_wan80ms_u1_rep3.csv
-│   ├── latencies_wan80ms_u20_rep1.csv
-│   ├── latencies_wan80ms_u20_rep2.csv
-│   └── latencies_wan80ms_u20_rep3.csv
+│   ├── latencies_..._rep.csv    # Latencies datasets
 ├── flatbuffers_local/
 │   ├── __init__.py
 │   └── work.fbs                 # Local FlatBuffers schema backup
