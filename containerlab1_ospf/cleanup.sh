@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sudo containerlab destroy -t pa3wan.clab.yml
+sudo containerlab destroy -t pa3wan.clab.yaml
