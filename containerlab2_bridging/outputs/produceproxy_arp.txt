@@ -1,0 +1,8 @@
+===== produceproxy: ip addr =====
+56: eth1@if55: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 qdisc noqueue state UP group default 
+    link/ether aa:c1:ab:74:b9:54 brd ff:ff:ff:ff:ff:ff link-netnsid 1
+    inet 192.168.50.24/24 scope global eth1
+       valid_lft forever preferred_lft forever
+
+===== produceproxy: ARP / neighbor table =====
+192.168.50.10 dev eth1 lladdr aa:c1:ab:0a:66:8a DELAY 

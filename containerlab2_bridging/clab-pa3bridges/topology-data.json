@@ -1,0 +1,765 @@
+{
+  "name": "pa3bridges",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "clab",
+      "mgmt": {
+        "network": "clab",
+        "bridge": "br-16a3c5696122",
+        "ipv4-subnet": "172.20.20.0/24",
+        "ipv4-gw": "172.20.20.1",
+        "ipv6-subnet": "3fff:172:20:20::/64",
+        "ipv6-gw": "3fff:172:20:20::1",
+        "external-access": true
+      }
+    }
+  },
+  "ssh-pub-keys": ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC1+0rt5zIzTpDPFUSHQEXWgttpX4Id8KL0HMj2cIOdskJPW9VBOJcU/hq67tLVtGds0HTBIIKW5gDQcYb+W/r6+5faIW3niLwpOpjoHt719MIZtLHBK7z37dq1pLp9uPhLUq3OoT6Ww3Puh6MKxfZ9cVix8zVbvKq7unxM/My5h6PsLW8n218BG8fFdoWr/0cZ6iXFsgk1Y+J649+h7EN8kbQSY92crKr/vh3n8mL5PxNE2AFKQLKBEfwfWwR+TQ595MwHLoCQa16A+rfTbSjm0BOrf7ocKWLdUOINnxtA3C4M9xQFEcg69tcoAw1by/QH3D80JfvoGhwRCNubICj9"],
+  "nodes": {
+    "br1": {
+      "index": "0",
+      "shortname": "br1",
+      "longname": "clab-pa3bridges-br1",
+      "fqdn": "br1.pa3bridges.io",
+      "group": "",
+      "labdir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/br1",
+      "kind": "linux",
+      "image": "wbitt/network-multitool:extra",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.14",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::e",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-16a3c5696122",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/br1",
+        "clab-node-longname": "clab-pa3bridges-br1",
+        "clab-node-name": "br1",
+        "clab-node-type": "",
+        "clab-owner": "ubuntu",
+        "clab-topo-file": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/pa3bridges.clab.yaml",
+        "containerlab": "pa3bridges"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 80,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 11443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 1180,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 443,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "br2": {
+      "index": "1",
+      "shortname": "br2",
+      "longname": "clab-pa3bridges-br2",
+      "fqdn": "br2.pa3bridges.io",
+      "group": "",
+      "labdir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/br2",
+      "kind": "linux",
+      "image": "wbitt/network-multitool:extra",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.11",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::b",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-16a3c5696122",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/br2",
+        "clab-node-longname": "clab-pa3bridges-br2",
+        "clab-node-name": "br2",
+        "clab-node-type": "",
+        "clab-owner": "ubuntu",
+        "clab-topo-file": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/pa3bridges.clab.yaml",
+        "containerlab": "pa3bridges"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 11443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 1180,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 80,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "br3": {
+      "index": "2",
+      "shortname": "br3",
+      "longname": "clab-pa3bridges-br3",
+      "fqdn": "br3.pa3bridges.io",
+      "group": "",
+      "labdir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/br3",
+      "kind": "linux",
+      "image": "wbitt/network-multitool:extra",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.10",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::a",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-16a3c5696122",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/br3",
+        "clab-node-longname": "clab-pa3bridges-br3",
+        "clab-node-name": "br3",
+        "clab-node-type": "",
+        "clab-owner": "ubuntu",
+        "clab-topo-file": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/pa3bridges.clab.yaml",
+        "containerlab": "pa3bridges"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 11443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 1180,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 80,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "br4": {
+      "index": "3",
+      "shortname": "br4",
+      "longname": "clab-pa3bridges-br4",
+      "fqdn": "br4.pa3bridges.io",
+      "group": "",
+      "labdir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/br4",
+      "kind": "linux",
+      "image": "wbitt/network-multitool:extra",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.17",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::11",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-16a3c5696122",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/br4",
+        "clab-node-longname": "clab-pa3bridges-br4",
+        "clab-node-name": "br4",
+        "clab-node-type": "",
+        "clab-owner": "ubuntu",
+        "clab-topo-file": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/pa3bridges.clab.yaml",
+        "containerlab": "pa3bridges"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 80,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 11443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 1180,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "breadproxy": {
+      "index": "4",
+      "shortname": "breadproxy",
+      "longname": "clab-pa3bridges-breadproxy",
+      "fqdn": "breadproxy.pa3bridges.io",
+      "group": "",
+      "labdir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/breadproxy",
+      "kind": "linux",
+      "image": "wbitt/network-multitool:extra",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.18",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::12",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-16a3c5696122",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/breadproxy",
+        "clab-node-longname": "clab-pa3bridges-breadproxy",
+        "clab-node-name": "breadproxy",
+        "clab-node-type": "",
+        "clab-owner": "ubuntu",
+        "clab-topo-file": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/pa3bridges.clab.yaml",
+        "containerlab": "pa3bridges"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 1180,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 80,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 11443,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "c2edge": {
+      "index": "5",
+      "shortname": "c2edge",
+      "longname": "clab-pa3bridges-c2edge",
+      "fqdn": "c2edge.pa3bridges.io",
+      "group": "",
+      "labdir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/c2edge",
+      "kind": "linux",
+      "image": "wbitt/network-multitool:extra",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.19",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::13",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-16a3c5696122",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/c2edge",
+        "clab-node-longname": "clab-pa3bridges-c2edge",
+        "clab-node-name": "c2edge",
+        "clab-node-type": "",
+        "clab-owner": "ubuntu",
+        "clab-topo-file": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/pa3bridges.clab.yaml",
+        "containerlab": "pa3bridges"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 80,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 11443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 1180,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "dairyproxy": {
+      "index": "6",
+      "shortname": "dairyproxy",
+      "longname": "clab-pa3bridges-dairyproxy",
+      "fqdn": "dairyproxy.pa3bridges.io",
+      "group": "",
+      "labdir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/dairyproxy",
+      "kind": "linux",
+      "image": "wbitt/network-multitool:extra",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.15",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::f",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-16a3c5696122",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/dairyproxy",
+        "clab-node-longname": "clab-pa3bridges-dairyproxy",
+        "clab-node-name": "dairyproxy",
+        "clab-node-type": "",
+        "clab-owner": "ubuntu",
+        "clab-topo-file": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/pa3bridges.clab.yaml",
+        "containerlab": "pa3bridges"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 11443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 1180,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 80,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "meatproxy": {
+      "index": "7",
+      "shortname": "meatproxy",
+      "longname": "clab-pa3bridges-meatproxy",
+      "fqdn": "meatproxy.pa3bridges.io",
+      "group": "",
+      "labdir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/meatproxy",
+      "kind": "linux",
+      "image": "wbitt/network-multitool:extra",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.16",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::10",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-16a3c5696122",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/meatproxy",
+        "clab-node-longname": "clab-pa3bridges-meatproxy",
+        "clab-node-name": "meatproxy",
+        "clab-node-type": "",
+        "clab-owner": "ubuntu",
+        "clab-topo-file": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/pa3bridges.clab.yaml",
+        "containerlab": "pa3bridges"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 80,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 11443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 1180,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 443,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "partyproxy": {
+      "index": "8",
+      "shortname": "partyproxy",
+      "longname": "clab-pa3bridges-partyproxy",
+      "fqdn": "partyproxy.pa3bridges.io",
+      "group": "",
+      "labdir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/partyproxy",
+      "kind": "linux",
+      "image": "wbitt/network-multitool:extra",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.12",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::c",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-16a3c5696122",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/partyproxy",
+        "clab-node-longname": "clab-pa3bridges-partyproxy",
+        "clab-node-name": "partyproxy",
+        "clab-node-type": "",
+        "clab-owner": "ubuntu",
+        "clab-topo-file": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/pa3bridges.clab.yaml",
+        "containerlab": "pa3bridges"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 11443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 1180,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 80,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "produceproxy": {
+      "index": "9",
+      "shortname": "produceproxy",
+      "longname": "clab-pa3bridges-produceproxy",
+      "fqdn": "produceproxy.pa3bridges.io",
+      "group": "",
+      "labdir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/produceproxy",
+      "kind": "linux",
+      "image": "wbitt/network-multitool:extra",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.13",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::d",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-16a3c5696122",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/clab-pa3bridges/produceproxy",
+        "clab-node-longname": "clab-pa3bridges-produceproxy",
+        "clab-node-name": "produceproxy",
+        "clab-node-type": "",
+        "clab-owner": "ubuntu",
+        "clab-topo-file": "/home/ubuntu/csX383-assignment3/containerlab2_bridging/pa3bridges.clab.yaml",
+        "containerlab": "pa3bridges"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 11443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 1180,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 80,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  },
+  "links": [
+    {
+      "endpoints": {
+        "a": {
+          "node": "c2edge",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:0a:66:8a",
+          "peer": "z"
+        },
+        "z": {
+          "node": "br1",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:44:a0:5b",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "breadproxy",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:7a:20:c6",
+          "peer": "z"
+        },
+        "z": {
+          "node": "br2",
+          "interface": "eth4",
+          "mac": "aa:c1:ab:ca:e5:f5",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "dairyproxy",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:52:f6:c1",
+          "peer": "z"
+        },
+        "z": {
+          "node": "br2",
+          "interface": "eth5",
+          "mac": "aa:c1:ab:5c:2e:79",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "meatproxy",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:3e:e2:1d",
+          "peer": "z"
+        },
+        "z": {
+          "node": "br3",
+          "interface": "eth4",
+          "mac": "aa:c1:ab:b8:c9:48",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "produceproxy",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:74:b9:54",
+          "peer": "z"
+        },
+        "z": {
+          "node": "br4",
+          "interface": "eth4",
+          "mac": "aa:c1:ab:0e:5e:ef",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "partyproxy",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:dd:c7:1f",
+          "peer": "z"
+        },
+        "z": {
+          "node": "br4",
+          "interface": "eth5",
+          "mac": "aa:c1:ab:0f:d7:77",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "br1",
+          "interface": "eth2",
+          "mac": "aa:c1:ab:16:c2:fe",
+          "peer": "z"
+        },
+        "z": {
+          "node": "br2",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:f7:f2:4d",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "br1",
+          "interface": "eth3",
+          "mac": "aa:c1:ab:ee:78:60",
+          "peer": "z"
+        },
+        "z": {
+          "node": "br3",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:d3:67:92",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "br1",
+          "interface": "eth4",
+          "mac": "aa:c1:ab:86:4f:60",
+          "peer": "z"
+        },
+        "z": {
+          "node": "br4",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:9f:88:d7",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "br2",
+          "interface": "eth2",
+          "mac": "aa:c1:ab:8f:ac:34",
+          "peer": "z"
+        },
+        "z": {
+          "node": "br3",
+          "interface": "eth2",
+          "mac": "aa:c1:ab:66:a5:ae",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "br2",
+          "interface": "eth3",
+          "mac": "aa:c1:ab:9e:37:6d",
+          "peer": "z"
+        },
+        "z": {
+          "node": "br4",
+          "interface": "eth2",
+          "mac": "aa:c1:ab:07:ab:62",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "br3",
+          "interface": "eth3",
+          "mac": "aa:c1:ab:50:b4:75",
+          "peer": "z"
+        },
+        "z": {
+          "node": "br4",
+          "interface": "eth3",
+          "mac": "aa:c1:ab:38:66:87",
+          "peer": "a"
+        }
+      }
+    }
+  ]
+}

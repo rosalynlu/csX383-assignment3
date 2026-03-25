@@ -1,0 +1,7 @@
+===== breadproxy: ip addr =====
+39: eth1@if40: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 qdisc noqueue state UP group default 
+    link/ether aa:c1:ab:7a:20:c6 brd ff:ff:ff:ff:ff:ff link-netnsid 1
+    inet 192.168.50.21/24 scope global eth1
+       valid_lft forever preferred_lft forever
+
+===== breadproxy: ARP / neighbor table =====

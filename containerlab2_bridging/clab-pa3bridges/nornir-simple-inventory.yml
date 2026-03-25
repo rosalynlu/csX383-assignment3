@@ -1,0 +1,51 @@
+---
+br1:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.14
+br2:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.11
+br3:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.10
+br4:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.17
+breadproxy:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.18
+c2edge:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.19
+dairyproxy:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.15
+meatproxy:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.16
+partyproxy:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.12
+produceproxy:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.13

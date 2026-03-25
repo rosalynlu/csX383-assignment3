@@ -1,0 +1,8 @@
+===== dairyproxy: ip addr =====
+43: eth1@if44: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9500 qdisc noqueue state UP group default 
+    link/ether aa:c1:ab:52:f6:c1 brd ff:ff:ff:ff:ff:ff link-netnsid 1
+    inet 192.168.50.22/24 scope global eth1
+       valid_lft forever preferred_lft forever
+
+===== dairyproxy: ARP / neighbor table =====
+192.168.50.10 dev eth1 lladdr aa:c1:ab:0a:66:8a DELAY 

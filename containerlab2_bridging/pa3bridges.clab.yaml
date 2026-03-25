@@ -1,0 +1,54 @@
+name: pa3bridges
+
+topology:
+  nodes:
+    br1:
+      kind: linux
+      image: wbitt/network-multitool:extra
+    br2:
+      kind: linux
+      image: wbitt/network-multitool:extra
+    br3:
+      kind: linux
+      image: wbitt/network-multitool:extra
+    br4:
+      kind: linux
+      image: wbitt/network-multitool:extra
+
+    c2edge:
+      kind: linux
+      image: wbitt/network-multitool:extra
+
+    breadproxy:
+      kind: linux
+      image: wbitt/network-multitool:extra
+    dairyproxy:
+      kind: linux
+      image: wbitt/network-multitool:extra
+    meatproxy:
+      kind: linux
+      image: wbitt/network-multitool:extra
+    produceproxy:
+      kind: linux
+      image: wbitt/network-multitool:extra
+    partyproxy:
+      kind: linux
+      image: wbitt/network-multitool:extra
+
+  links:
+    - endpoints: ["c2edge:eth1", "br1:eth1"]
+
+    - endpoints: ["breadproxy:eth1", "br2:eth4"]
+    - endpoints: ["dairyproxy:eth1", "br2:eth5"]
+
+    - endpoints: ["meatproxy:eth1", "br3:eth4"]
+
+    - endpoints: ["produceproxy:eth1", "br4:eth4"]
+    - endpoints: ["partyproxy:eth1", "br4:eth5"]
+
+    - endpoints: ["br1:eth2", "br2:eth1"]
+    - endpoints: ["br1:eth3", "br3:eth1"]
+    - endpoints: ["br1:eth4", "br4:eth1"]
+    - endpoints: ["br2:eth2", "br3:eth2"]
+    - endpoints: ["br2:eth3", "br4:eth2"]
+    - endpoints: ["br3:eth3", "br4:eth3"]
