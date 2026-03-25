@@ -14,6 +14,7 @@ This repository contains the implementation of Programming Assignment 2 for CSX3
   * [ContainerLab HIL Implementation](#ContainerLab-HIL-Implementation)
 * [**Programming Assignment 3** (In Progress)](#Programming-Assignment-3-(In-Progress))
   * [Milestone 1: ContainerLab OSPF WAN](#Milestone-1-ContainerLab-OSPF-WAN)
+  * [Milestone 2: ContainerLAB Bridging Topology](#Milestone-2-ContainerLab-Bridging-Topology)
 * [Notes](#Notes)
 
 ## Repository Structure
@@ -931,6 +932,69 @@ Run:
 ```bash
 ./cleanup.sh
 ```
+##PA3 – Milestone 2: ContainerLab Bridging Topology
+
+## Overview
+In this milestone, we implemented a Layer 2 bridging topology using ContainerLab.
+Instead of routing (OSPF), we used Linux bridges with Spanning Tree Protocol (STP) to prevent loops.
+
+We verified:
+- MAC address learning (bridge forwarding tables)
+- ARP table population
+- End-to-end connectivity across LANs
+
+## Directory
+containerlab2_bridging/
+
+## How to Run
+cd containerlab2_bridging
+
+# Deploy the topology
+sudo containerlab deploy -t pa3bridges.clab.yaml
+
+# Configure bridges (STP + path costs)
+bash configure-bridges.sh
+
+# Configure host IPs
+bash configure-hosts.sh
+
+# Run connectivity tests
+bash run.sh
+
+## Verification
+
+# Check Bridge Learning (MAC Table)
+bridge fdb show
+
+# Check ARP Tables
+ip neigh show
+
+# Test Connectivity
+ping <destination-ip>
+# Example connectivity test (from c2edge to breadproxy)
+ping 192.168.50.21
+
+# Example connectivity test (from c2edge to partyproxy)
+ping 192.168.50.25
+
+## Outputs
+containerlab2_bridging/outputs/
+
+Files:
+- br*_bridge_state.txt → Bridge/STP state
+- *_arp.txt → ARP tables from hosts
+- connectivity.txt → End-to-end ping results
+
+## Cleanup
+cd containerlab2_bridging
+bash cleanup.sh
+
+## Notes milestone2
+- ContainerLab1 (OSPF topology) remains unchanged.
+- STP is used to avoid loops in the bridged topology.
+- Link weights were configured using bridge path costs.
+
+
 
 # Notes
 
