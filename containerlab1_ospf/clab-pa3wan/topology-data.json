@@ -1,0 +1,447 @@
+{
+  "name": "pa3wan",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "clab",
+      "mgmt": {
+        "network": "clab",
+        "bridge": "br-e882fd059faf",
+        "ipv4-subnet": "172.20.20.0/24",
+        "ipv4-gw": "172.20.20.1",
+        "ipv6-subnet": "3fff:172:20:20::/64",
+        "ipv6-gw": "3fff:172:20:20::1",
+        "external-access": true
+      }
+    }
+  },
+  "ssh-pub-keys": ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8Vc09Oed58CjPuOtzF4ZsIlR0U8REz7km9DvO6oTciiUaXfYo+Cl3aFRk36ZFz7AXkIEgBZOmxici/n1XUlEUW3UewpIE99/vCobKFL/0gr7LW5oUk/dFOEh9x1t8K/YWLHUXUIYH6Xxgzvk82E73WvbGVRkKXEtgsFjKyCAGyTdXKamLbQNXuYbFFtiepGHyaSnJfJksWq+4+0QQqD0JjA7EN76djQ+vZw6ErDMDK0LfQi+IBP8TCaK0tVi4qbxP7hx8fBNRKeA3m4qHA+puNF82opK2Y6TEPOfOtw1VFVMDvGh5BxAD8XgKNkX16o2rXEP610bUJm3t3Bmoj+ez"],
+  "nodes": {
+    "lan1host": {
+      "index": "0",
+      "shortname": "lan1host",
+      "longname": "clab-pa3wan-lan1host",
+      "fqdn": "lan1host.pa3wan.io",
+      "group": "",
+      "labdir": "/home/cc/csX383-assignment3/containerlab1_ospf/clab-pa3wan/lan1host",
+      "kind": "linux",
+      "image": "wbitt/network-multitool:extra",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.4",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::4",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-e882fd059faf",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/cc/csX383-assignment3/containerlab1_ospf/clab-pa3wan/lan1host",
+        "clab-node-longname": "clab-pa3wan-lan1host",
+        "clab-node-name": "lan1host",
+        "clab-node-type": "",
+        "clab-owner": "cc",
+        "clab-topo-file": "/home/cc/csX383-assignment3/containerlab1_ospf/pa3wan.clab.yaml",
+        "containerlab": "pa3wan"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 11443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 1180,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 80,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "lan2host": {
+      "index": "1",
+      "shortname": "lan2host",
+      "longname": "clab-pa3wan-lan2host",
+      "fqdn": "lan2host.pa3wan.io",
+      "group": "",
+      "labdir": "/home/cc/csX383-assignment3/containerlab1_ospf/clab-pa3wan/lan2host",
+      "kind": "linux",
+      "image": "wbitt/network-multitool:extra",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.10",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::a",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-e882fd059faf",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/cc/csX383-assignment3/containerlab1_ospf/clab-pa3wan/lan2host",
+        "clab-node-longname": "clab-pa3wan-lan2host",
+        "clab-node-name": "lan2host",
+        "clab-node-type": "",
+        "clab-owner": "cc",
+        "clab-topo-file": "/home/cc/csX383-assignment3/containerlab1_ospf/pa3wan.clab.yaml",
+        "containerlab": "pa3wan"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 11443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 1180,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 443,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "",
+          "host-port": 0,
+          "port": 80,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "r1": {
+      "index": "2",
+      "shortname": "r1",
+      "longname": "clab-pa3wan-r1",
+      "fqdn": "r1.pa3wan.io",
+      "group": "",
+      "labdir": "/home/cc/csX383-assignment3/containerlab1_ospf/clab-pa3wan/r1",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.5.1",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.11",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::b",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-e882fd059faf",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/cc/csX383-assignment3/containerlab1_ospf/clab-pa3wan/r1",
+        "clab-node-longname": "clab-pa3wan-r1",
+        "clab-node-name": "r1",
+        "clab-node-type": "",
+        "clab-owner": "cc",
+        "clab-topo-file": "/home/cc/csX383-assignment3/containerlab1_ospf/pa3wan.clab.yaml",
+        "containerlab": "pa3wan"
+      },
+      "port-bindings": [
+      ]
+    },
+    "r2": {
+      "index": "3",
+      "shortname": "r2",
+      "longname": "clab-pa3wan-r2",
+      "fqdn": "r2.pa3wan.io",
+      "group": "",
+      "labdir": "/home/cc/csX383-assignment3/containerlab1_ospf/clab-pa3wan/r2",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.5.1",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.5",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::5",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-e882fd059faf",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/cc/csX383-assignment3/containerlab1_ospf/clab-pa3wan/r2",
+        "clab-node-longname": "clab-pa3wan-r2",
+        "clab-node-name": "r2",
+        "clab-node-type": "",
+        "clab-owner": "cc",
+        "clab-topo-file": "/home/cc/csX383-assignment3/containerlab1_ospf/pa3wan.clab.yaml",
+        "containerlab": "pa3wan"
+      },
+      "port-bindings": [
+      ]
+    },
+    "r3": {
+      "index": "4",
+      "shortname": "r3",
+      "longname": "clab-pa3wan-r3",
+      "fqdn": "r3.pa3wan.io",
+      "group": "",
+      "labdir": "/home/cc/csX383-assignment3/containerlab1_ospf/clab-pa3wan/r3",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.5.1",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.6",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::6",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-e882fd059faf",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/cc/csX383-assignment3/containerlab1_ospf/clab-pa3wan/r3",
+        "clab-node-longname": "clab-pa3wan-r3",
+        "clab-node-name": "r3",
+        "clab-node-type": "",
+        "clab-owner": "cc",
+        "clab-topo-file": "/home/cc/csX383-assignment3/containerlab1_ospf/pa3wan.clab.yaml",
+        "containerlab": "pa3wan"
+      },
+      "port-bindings": [
+      ]
+    },
+    "r4": {
+      "index": "5",
+      "shortname": "r4",
+      "longname": "clab-pa3wan-r4",
+      "fqdn": "r4.pa3wan.io",
+      "group": "",
+      "labdir": "/home/cc/csX383-assignment3/containerlab1_ospf/clab-pa3wan/r4",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.5.1",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.7",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::7",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-e882fd059faf",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/cc/csX383-assignment3/containerlab1_ospf/clab-pa3wan/r4",
+        "clab-node-longname": "clab-pa3wan-r4",
+        "clab-node-name": "r4",
+        "clab-node-type": "",
+        "clab-owner": "cc",
+        "clab-topo-file": "/home/cc/csX383-assignment3/containerlab1_ospf/pa3wan.clab.yaml",
+        "containerlab": "pa3wan"
+      },
+      "port-bindings": [
+      ]
+    },
+    "r5": {
+      "index": "6",
+      "shortname": "r5",
+      "longname": "clab-pa3wan-r5",
+      "fqdn": "r5.pa3wan.io",
+      "group": "",
+      "labdir": "/home/cc/csX383-assignment3/containerlab1_ospf/clab-pa3wan/r5",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.5.1",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.8",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::8",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-e882fd059faf",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/cc/csX383-assignment3/containerlab1_ospf/clab-pa3wan/r5",
+        "clab-node-longname": "clab-pa3wan-r5",
+        "clab-node-name": "r5",
+        "clab-node-type": "",
+        "clab-owner": "cc",
+        "clab-topo-file": "/home/cc/csX383-assignment3/containerlab1_ospf/pa3wan.clab.yaml",
+        "containerlab": "pa3wan"
+      },
+      "port-bindings": [
+      ]
+    },
+    "r6": {
+      "index": "7",
+      "shortname": "r6",
+      "longname": "clab-pa3wan-r6",
+      "fqdn": "r6.pa3wan.io",
+      "group": "",
+      "labdir": "/home/cc/csX383-assignment3/containerlab1_ospf/clab-pa3wan/r6",
+      "kind": "linux",
+      "image": "quay.io/frrouting/frr:10.5.1",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.9",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "3fff:172:20:20::9",
+      "mgmt-ipv6-prefix-length": 64,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-e882fd059faf",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/cc/csX383-assignment3/containerlab1_ospf/clab-pa3wan/r6",
+        "clab-node-longname": "clab-pa3wan-r6",
+        "clab-node-name": "r6",
+        "clab-node-type": "",
+        "clab-owner": "cc",
+        "clab-topo-file": "/home/cc/csX383-assignment3/containerlab1_ospf/pa3wan.clab.yaml",
+        "containerlab": "pa3wan"
+      },
+      "port-bindings": [
+      ]
+    }
+  },
+  "links": [
+    {
+      "endpoints": {
+        "a": {
+          "node": "lan1host",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:6a:ea:29",
+          "peer": "z"
+        },
+        "z": {
+          "node": "r4",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:e5:93:c3",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "r4",
+          "interface": "eth2",
+          "mac": "aa:c1:ab:17:2d:b2",
+          "peer": "z"
+        },
+        "z": {
+          "node": "r1",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:b4:57:7c",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "r1",
+          "interface": "eth2",
+          "mac": "aa:c1:ab:20:df:0a",
+          "peer": "z"
+        },
+        "z": {
+          "node": "r2",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:4b:cb:72",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "r1",
+          "interface": "eth3",
+          "mac": "aa:c1:ab:27:06:2e",
+          "peer": "z"
+        },
+        "z": {
+          "node": "r3",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:95:7a:ad",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "r3",
+          "interface": "eth2",
+          "mac": "aa:c1:ab:0d:0c:a4",
+          "peer": "z"
+        },
+        "z": {
+          "node": "r5",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:26:a4:54",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "r5",
+          "interface": "eth2",
+          "mac": "aa:c1:ab:9a:27:a1",
+          "peer": "z"
+        },
+        "z": {
+          "node": "r2",
+          "interface": "eth2",
+          "mac": "aa:c1:ab:e7:da:ee",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "r2",
+          "interface": "eth3",
+          "mac": "aa:c1:ab:e5:1f:d4",
+          "peer": "z"
+        },
+        "z": {
+          "node": "r6",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:29:ad:1a",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "r6",
+          "interface": "eth2",
+          "mac": "aa:c1:ab:66:8e:cf",
+          "peer": "z"
+        },
+        "z": {
+          "node": "lan2host",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:ea:d9:02",
+          "peer": "a"
+        }
+      }
+    }
+  ]
+}

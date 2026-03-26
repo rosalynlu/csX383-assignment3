@@ -1,0 +1,63 @@
+name: pa3wan
+
+topology:
+  nodes:
+    r1:
+      kind: linux
+      image: quay.io/frrouting/frr:10.5.1
+      binds:
+        - r1/daemons:/etc/frr/daemons
+        - r1/frr.conf:/etc/frr/frr.conf
+
+    r2:
+      kind: linux
+      image: quay.io/frrouting/frr:10.5.1
+      binds:
+        - r2/daemons:/etc/frr/daemons
+        - r2/frr.conf:/etc/frr/frr.conf
+
+    r3:
+      kind: linux
+      image: quay.io/frrouting/frr:10.5.1
+      binds:
+        - r3/daemons:/etc/frr/daemons
+        - r3/frr.conf:/etc/frr/frr.conf
+
+    r4:
+      kind: linux
+      image: quay.io/frrouting/frr:10.5.1
+      binds:
+        - r4/daemons:/etc/frr/daemons
+        - r4/frr.conf:/etc/frr/frr.conf
+
+    r5:
+      kind: linux
+      image: quay.io/frrouting/frr:10.5.1
+      binds:
+        - r5/daemons:/etc/frr/daemons
+        - r5/frr.conf:/etc/frr/frr.conf
+
+    r6:
+      kind: linux
+      image: quay.io/frrouting/frr:10.5.1
+      binds:
+        - r6/daemons:/etc/frr/daemons
+        - r6/frr.conf:/etc/frr/frr.conf
+
+    lan1host:
+      kind: linux
+      image: wbitt/network-multitool:extra
+
+    lan2host:
+      kind: linux
+      image: wbitt/network-multitool:extra
+
+  links:
+    - endpoints: ["lan1host:eth1", "r4:eth1"]
+    - endpoints: ["r4:eth2", "r1:eth1"]
+    - endpoints: ["r1:eth2", "r2:eth1"]
+    - endpoints: ["r1:eth3", "r3:eth1"]
+    - endpoints: ["r3:eth2", "r5:eth1"]
+    - endpoints: ["r5:eth2", "r2:eth2"]
+    - endpoints: ["r2:eth3", "r6:eth1"]
+    - endpoints: ["r6:eth2", "lan2host:eth1"]

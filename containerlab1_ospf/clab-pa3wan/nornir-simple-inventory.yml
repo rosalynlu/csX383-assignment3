@@ -1,0 +1,41 @@
+---
+lan1host:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.4
+lan2host:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.10
+r1:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.11
+r2:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.5
+r3:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.6
+r4:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.7
+r5:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.8
+r6:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.9
