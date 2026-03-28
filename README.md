@@ -932,68 +932,100 @@ Run:
 ```bash
 ./cleanup.sh
 ```
-##PA3 – Milestone 2: ContainerLab Bridging Topology
+## PA3 – Milestone 2: ContainerLab2 Bridging Topology
 
 ## Overview
-In this milestone, we implemented a Layer 2 bridging topology using ContainerLab.
-Instead of routing (OSPF), we used Linux bridges with Spanning Tree Protocol (STP) to prevent loops.
+In this milestone, we implemented a Layer 2 bridging topology using ContainerLab2
+(between Cluster 2 and Cluster 3). Instead of routing (OSPF), we used Linux bridges
+with Spanning Tree Protocol (STP) to prevent loops and compute a minimum spanning tree.
 
 We verified:
-- MAC address learning (bridge forwarding tables)
-- ARP table population
-- End-to-end connectivity across LANs
+- MAC address learning (bridge forwarding tables via `brctl showmacs`)
+- Internal connectivity across all 5 proxy nodes
+- STP convergence with weighted path costs
+
+Note: End-to-end connectivity between Cluster 3 robot pods and ContainerLab2
+is still in progress
 
 ## Directory
 containerlab2_bridging/
 
+
 ## How to Run
+```bash
 cd containerlab2_bridging
-
+```
 # Deploy the topology
+```bash
 sudo containerlab deploy -t pa3bridges.clab.yaml
+```
+# Wait for containers to start
+```bash
+sleep 5
+```
 
-# Configure bridges (STP + path costs)
+# Configure bridges (STP + weighted path costs)
+```bash
 bash configure-bridges.sh
-
-# Configure host IPs
+```
+# Configure host IPs on 192.168.50.0/24
+```bash
 bash configure-hosts.sh
+```
+# Wait for STP to converge
+```bash
+sleep 30
+```
+# Verify connectivity
+```bash
+docker exec clab-pa3bridges-c2edge ping -c 2 192.168.50.21
+docker exec clab-pa3bridges-c2edge ping -c 2 192.168.50.22
+docker exec clab-pa3bridges-c2edge ping -c 2 192.168.50.23
+docker exec clab-pa3bridges-c2edge ping -c 2 192.168.50.24
+docker exec clab-pa3bridges-c2edge ping -c 2 192.168.50.25
+```
 
-# Run connectivity tests
-bash run.sh
+## Topology
+- 4 Linux bridges: br1 (priority 4096), br2 (8192), br3 (12288), br4 (16384)
+- 1 Cluster 2 edge node: c2edge (192.168.50.10)
+- 5 robot proxies on 192.168.50.0/24:
+  - breadproxy: 192.168.50.21
+  - dairyproxy: 192.168.50.22
+  - meatproxy: 192.168.50.23
+  - produceproxy: 192.168.50.24
+  - partyproxy: 192.168.50.25
 
 ## Verification
 
-# Check Bridge Learning (MAC Table)
-bridge fdb show
+# Check MAC learning tables on all bridges
+```bash
+docker exec clab-pa3bridges-br1 brctl showmacs br0
+docker exec clab-pa3bridges-br2 brctl showmacs br0
+docker exec clab-pa3bridges-br3 brctl showmacs br0
+docker exec clab-pa3bridges-br4 brctl showmacs br0
+```
 
-# Check ARP Tables
-ip neigh show
+# Save MAC tables to outputs
+```bash
+docker exec clab-pa3bridges-br1 brctl showmacs br0 > outputs/br1_macs.txt
+docker exec clab-pa3bridges-br2 brctl showmacs br0 > outputs/br2_macs.txt
+docker exec clab-pa3bridges-br3 brctl showmacs br0 > outputs/br3_macs.txt
+docker exec clab-pa3bridges-br4 brctl showmacs br0 > outputs/br4_macs.txt
+```
 
-# Test Connectivity
-ping <destination-ip>
-# Example connectivity test (from c2edge to breadproxy)
-ping 192.168.50.21
-
-# Example connectivity test (from c2edge to partyproxy)
-ping 192.168.50.25
-
-## Outputs
-containerlab2_bridging/outputs/
-
-Files:
-- br*_bridge_state.txt → Bridge/STP state
-- *_arp.txt → ARP tables from hosts
-- connectivity.txt → End-to-end ping results
+# Check STP state
+```bash
+docker exec clab-pa3bridges-br1 brctl showstp br0
+docker exec clab-pa3bridges-br2 brctl showstp br0
+docker exec clab-pa3bridges-br3 brctl showstp br0
+docker exec clab-pa3bridges-br4 brctl showstp br0
+```
 
 ## Cleanup
+```bash
 cd containerlab2_bridging
 bash cleanup.sh
-
-## Notes milestone2
-- ContainerLab1 (OSPF topology) remains unchanged.
-- STP is used to avoid loops in the bridged topology.
-- Link weights were configured using bridge path costs.
-
+```
 
 
 # Notes
