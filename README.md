@@ -935,96 +935,112 @@ Run:
 ## PA3 – Milestone 2: ContainerLab2 Bridging Topology
 
 ## Overview
-In this milestone, we implemented a Layer 2 bridging topology using ContainerLab2
-(between Cluster 2 and Cluster 3). Instead of routing (OSPF), we used Linux bridges
-with Spanning Tree Protocol (STP) to prevent loops and compute a minimum spanning tree.
 
-We verified:
-- MAC address learning (bridge forwarding tables via `brctl showmacs`)
-- Internal connectivity across all 5 proxy nodes
-- STP convergence with weighted path costs
+ContainerLab2 runs on **team-ras-1** (172.16.6.164) and acts as a Layer 2 HIL between
+Cluster 2 (services) and Cluster 3 (robot pods). It uses 4 Linux bridges with STP to
+compute a minimum spanning tree, and socat proxy chains to route robot traffic through
+the bridge network.
 
-Note: End-to-end connectivity between Cluster 3 robot pods and ContainerLab2
-is still in progress
-
-## Directory
-containerlab2_bridging/
-
-
-## How to Run
-```bash
-cd containerlab2_bridging
+**Traffic path:**
 ```
-# Deploy the topology
-```bash
-sudo containerlab deploy -t pa3bridges.clab.yaml
-```
-# Wait for containers to start
-```bash
-sleep 5
+C3 robot pod → team-ras-1:3108x → proxy container → bridge network (STP) → c2edge → C2 inventory
 ```
 
-# Configure bridges (STP + weighted path costs)
-```bash
-bash configure-bridges.sh
-```
-# Configure host IPs on 192.168.50.0/24
-```bash
-bash configure-hosts.sh
-```
-# Wait for STP to converge
-```bash
-sleep 30
-```
-# Verify connectivity
-```bash
-docker exec clab-pa3bridges-c2edge ping -c 2 192.168.50.21
-docker exec clab-pa3bridges-c2edge ping -c 2 192.168.50.22
-docker exec clab-pa3bridges-c2edge ping -c 2 192.168.50.23
-docker exec clab-pa3bridges-c2edge ping -c 2 192.168.50.24
-docker exec clab-pa3bridges-c2edge ping -c 2 192.168.50.25
-```
+Each robot has its own proxy node on a different LAN, so each traverses a different path
+through the spanning tree.
 
 ## Topology
-- 4 Linux bridges: br1 (priority 4096), br2 (8192), br3 (12288), br4 (16384)
-- 1 Cluster 2 edge node: c2edge (192.168.50.10)
-- 5 robot proxies on 192.168.50.0/24:
-  - breadproxy: 192.168.50.21
-  - dairyproxy: 192.168.50.22
-  - meatproxy: 192.168.50.23
-  - produceproxy: 192.168.50.24
-  - partyproxy: 192.168.50.25
 
-## Verification
+4 Linux bridges (fully interconnected, STP eliminates loops):
+- **br1** — priority 4096 (STP root)
+- **br2** — priority 8192
+- **br3** — priority 12288
+- **br4** — priority 16384
 
-# Check MAC learning tables on all bridges
+6 host containers on `192.168.50.0/24`:
+
+| Container | IP | Role |
+|---|---|---|
+| c2edge | 192.168.50.10 | Exit point → C2 inventory |
+| breadproxy | 192.168.50.21 | Proxy for bread robot |
+| dairyproxy | 192.168.50.22 | Proxy for dairy robot |
+| meatproxy | 192.168.50.23 | Proxy for meat robot |
+| produceproxy | 192.168.50.24 | Proxy for produce robot |
+| partyproxy | 192.168.50.25 | Proxy for party robot |
+
+Port mapping on team-ras-1 (172.16.6.164):
+
+| Robot | gRPC port | ZMQ port | Proxy |
+|---|---|---|---|
+| bread | 31081 | 31557 | breadproxy |
+| dairy | 31082 | 31558 | dairyproxy |
+| meat | 31083 | 31559 | meatproxy |
+| produce | 31084 | 31560 | produceproxy |
+| party | 31085 | 31561 | partyproxy |
+
+## How to Deploy
+
+All commands run **on team-ras-1** unless noted.
+
+**Step 1 — Deploy the topology and configure bridges:**
 ```bash
-docker exec clab-pa3bridges-br1 brctl showmacs br0
-docker exec clab-pa3bridges-br2 brctl showmacs br0
-docker exec clab-pa3bridges-br3 brctl showmacs br0
-docker exec clab-pa3bridges-br4 brctl showmacs br0
+cd ~/csX383-assignment3/containerlab2_bridging
+sudo bash run.sh
 ```
+This deploys the containers, configures STP with weighted path costs, assigns IPs on
+`192.168.50.0/24`, and starts socat inside each proxy container:
+- Each proxy listens on 30081/30557 and forwards to c2edge (192.168.50.10) via the bridge
+- c2edge listens on 30081/30557 and forwards to C2 inventory (172.16.2.99)
 
-# Save MAC tables to outputs
+**Step 2 — Expose proxy ports to K8s (run on team-ras-1 host):**
 ```bash
-docker exec clab-pa3bridges-br1 brctl showmacs br0 > outputs/br1_macs.txt
-docker exec clab-pa3bridges-br2 brctl showmacs br0 > outputs/br2_macs.txt
-docker exec clab-pa3bridges-br3 brctl showmacs br0 > outputs/br3_macs.txt
-docker exec clab-pa3bridges-br4 brctl showmacs br0 > outputs/br4_macs.txt
+bash ~/expose-proxies.sh
 ```
+Starts socat on the host forwarding each robot's port pair (31081–31085, 31557–31561)
+to the corresponding proxy container's management IP (172.20.20.x). This makes the
+proxy containers reachable from C3. Requires `socat` installed (`sudo apt-get install -y socat`).
 
-# Check STP state
+**Step 3 — Deploy updated robot pods (run from local machine):**
 ```bash
-docker exec clab-pa3bridges-br1 brctl showstp br0
-docker exec clab-pa3bridges-br2 brctl showstp br0
-docker exec clab-pa3bridges-br3 brctl showstp br0
-docker exec clab-pa3bridges-br4 brctl showstp br0
+# Copy updated yamls to cluster master
+scp k8s/robot-{bread,dairy,meat,produce,party}-c3.yaml nw-c3-m1:~/team6/k8s/
+
+# Apply on cluster
+ssh nw-c3-m1 "kubectl apply -f ~/team6/k8s/robot-bread-c3.yaml \
+  -f ~/team6/k8s/robot-dairy-c3.yaml \
+  -f ~/team6/k8s/robot-meat-c3.yaml \
+  -f ~/team6/k8s/robot-produce-c3.yaml \
+  -f ~/team6/k8s/robot-party-c3.yaml"
 ```
+Each robot's `INVENTORY_ADDR` and `ZMQ_SUB_ADDR` now point to team-ras-1 (172.16.6.164)
+on their assigned port instead of directly to C2.
+
+**Step 4 — Verify end-to-end:**
+```bash
+# Run from team-ras-1
+curl -s -X POST http://172.16.2.99:30083/submit \
+  -H "Content-Type: application/json" \
+  -d '{"request_type":"GROCERY_ORDER","id":"test","items":{"bread":1,"milk":1}}'
+```
+Expected: `"code":"OK"` with `"received all robot replies"`.
+
+## Collecting Outputs
+
+Run from team-ras-1 to capture MAC tables, ARP tables, STP state, and connectivity:
+```bash
+cd ~/csX383-assignment3/containerlab2_bridging
+bash capture.sh
+```
+Outputs saved to `containerlab2_bridging/outputs/`.
 
 ## Cleanup
+
 ```bash
-cd containerlab2_bridging
+# On team-ras-1
+cd ~/csX383-assignment3/containerlab2_bridging
 bash cleanup.sh
+pkill -f "socat TCP-LISTEN:310" || true
+pkill -f "socat TCP-LISTEN:315" || true
 ```
 
 
