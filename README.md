@@ -587,14 +587,18 @@ python3 scripts/tail_latency.py \
   --input data/latencies_u1_rep*.csv data/latencies_u10_rep*.csv data/latencies_u20_rep*.csv \
   --outdir out \
   --title "Latency CDF" \
-  --combined
+  --combined \
+  --prefix baseline_
 ```
 
-**Output:**
-- `out/cdf_per_run.png` — CDF curve per run
-- `out/cdf_combined.png` — all runs overlaid
-- `out/per_run_tail_latencies.csv` — P50/P90/P95/P99 per run
-- `out/summary.txt` — pooled statistics across all runs
+Use `--prefix` to tag all output files with a descriptive prefix (e.g. `baseline_`, `wan30ms_`). If omitted, files use their default names.
+
+**Output** (with `--prefix baseline_`):
+- `out/cdf_per_run_baseline.png` — CDF curve per run
+- `out/cdf_combined_baseline.png` — all runs overlaid
+- `out/per_run_tail_latencies_baseline.csv` — P50/P90/P95/P99 per run
+- `out/pooled_tail_latencies_baseline.csv` — pooled tail latency statistics
+- `out/summary_baseline.txt` — pooled statistics across all runs
 
 ## ContainerLab HIL Implementation
 
@@ -817,25 +821,28 @@ RUN_TAG=wan80ms_u20_rep3 LOCUST_LOG_DIR=data locust -f scripts/locustfile.py --h
 ```bash
 python3 scripts/tail_latency.py \
   --input "data/latencies_baseline_u*_rep*.csv" \
-  --outdir out/baseline \
+  --outdir out \
   --title "Baseline" \
-  --combined
+  --combined \
+  --prefix baseline_
 ```
 
 ```bash
 python3 scripts/tail_latency.py \
   --input "data/latencies_wan30ms_u*_rep*.csv" \
-  --outdir out/wan30ms \
+  --outdir out \
   --title "WAN 30ms + 1% loss" \
-  --combined
+  --combined \
+  --prefix wan30ms_
 ```
 
 ```bash
 python3 scripts/tail_latency.py \
   --input "data/latencies_wan80ms_u*_rep*.csv" \
-  --outdir out/wan80ms \
+  --outdir out \
   --title "WAN 80ms + 0.5% loss" \
-  --combined
+  --combined \
+  --prefix wan80ms_
 ```
 
 Metrics generated:
@@ -844,7 +851,7 @@ Metrics generated:
 - P95 latency
 - P99 latency
 
-CDF plots are stored in `out/`.
+CDF plots and CSV/text summaries are stored in `out/`, each suffixed with the `--prefix` value.
 
 # Programming Assignment 3 (In Progress)
 

@@ -89,10 +89,12 @@ def main():
     ap.add_argument("--outdir", default="out", help="Output directory.")
     ap.add_argument("--title", default="Latency CDF", help="Plot title.")
     ap.add_argument("--combined", action="store_true", help="Also plot combined CDF across all runs.")
+    ap.add_argument("--prefix", default="", help="Optional prefix appended to all output file names (e.g. '_baseline').")
     args = ap.parse_args()
 
     outdir = Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
+    pfx = args.prefix
 
     files = expand_inputs(args.input)
     if not files:
@@ -115,10 +117,10 @@ def main():
         all_vals.extend(vals)
 
     # save tables
-    pd.DataFrame(per_run_rows).to_csv(outdir / "per_run_tail_latencies.csv", index=False)
+    pd.DataFrame(per_run_rows).to_csv(outdir / f"{pfx}_per_run_tail_latencies.csv", index=False)
 
     pooled = tail_stats(all_vals)
-    pd.DataFrame([pooled]).to_csv(outdir / "pooled_tail_latencies.csv", index=False)
+    pd.DataFrame([pooled]).to_csv(outdir / f"{pfx}_pooled_tail_latencies.csv", index=False)
 
     # print summary
     print("Per-run P50/P90/P95/P99 (ms):")
@@ -129,7 +131,7 @@ def main():
     # --- Save summary to file ---
     import os
 
-    summary_path = os.path.join(args.outdir, "summary.txt")
+    summary_path = os.path.join(args.outdir, f"{pfx}_summary.txt")
 
     with open(summary_path, "w") as f:
         f.write("Pooled across all runs (ms):\n")
@@ -155,7 +157,7 @@ def main():
     if len(series) > 1:
         plt.legend()
     plt.tight_layout()
-    plt.savefig(outdir / "cdf_per_run.png", dpi=200)
+    plt.savefig(outdir / f"{pfx}_cdf_per_run.png", dpi=200)
 
     # plot combined CDF if requested
     if args.combined:
@@ -167,7 +169,7 @@ def main():
         plt.title(args.title + " (combined)")
         plt.grid(True, which="both", linestyle="--", linewidth=0.5)
         plt.tight_layout()
-        plt.savefig(outdir / "cdf_combined.png", dpi=200)
+        plt.savefig(outdir / f"{pfx}_cdf_combined.png", dpi=200)
 
     print(f"\nSaved outputs to {outdir}/")
 
