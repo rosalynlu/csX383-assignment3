@@ -16,7 +16,7 @@ This repository contains the implementation of Programming Assignment 2 for CSX3
   * [ContainerLab OSPF WAN](#ContainerLab-OSPF-WAN)
   * [ContainerLab2 Bridging Topology](#ContainerLab2-Bridging-Topology)
   * [Deployment](#Deployment)
-  * [Collecting Outputs](#Collecting-Outputs)
+  * [Collecting Outputs and Cleanup](#Collecting-Outputs-and-Cleanup)
   * [Cleanup](#Cleanup)
 * [Notes](#Notes)
 
@@ -1034,7 +1034,9 @@ curl -s -X POST http://172.16.2.99:30083/submit \
 ```
 Expected: `"code":"OK"` with `"received all robot replies"`.
 
-## Collecting Outputs
+## Collecting Outputs and Cleanup
+
+### Collecting Outputs
 
 Run from team-ras-1 to capture MAC tables, ARP tables, STP state, and connectivity:
 ```bash
@@ -1043,7 +1045,7 @@ bash capture.sh
 ```
 Outputs saved to `containerlab2_bridging/outputs/`.
 
-## Cleanup
+### Cleanup
 
 ```bash
 # On team-ras-1
